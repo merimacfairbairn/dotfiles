@@ -18,8 +18,8 @@ inoreabbrev lorem Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed 
 " Map F5 to save and execute python script
 augroup run_python
     autocmd!
-    autocmd FileType python noremap <buffer> <F5> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
-    autocmd FileType python inoremap <buffer> <F5> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+    autocmd FileType python noremap <buffer> <F5> :w<CR>:exec '!clear && python3 %'<CR>
+    autocmd FileType python inoremap <buffer> <F5> <esc>:w<CR>:exec '!clear && python3 %'<CR>
 augroup END
 
 " }}}
@@ -27,15 +27,15 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 01. General                                                                "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set nocompatible            " Get rid of Vi support
-set nobackup                " Don't create backup files
-set noswapfile              " Don't create swap files
-set history=1000            " Set history limit to 1000
-set title                   " Set the window's title
-set encoding=utf-8          " Specify encoding
-scriptencoding utf-8
-set nrformats-=octal        " Treat octal numbers as decimal when incrementing
-set clipboard=unnamed       " Synchronize system and vim clipboards
+set nocompatible                " Get rid of Vi support
+set nobackup                    " Don't create backup files
+set noswapfile                  " Don't create swap files
+set history=1000                " Set history limit to 1000
+set title                       " Set the window's title
+set encoding=utf-8              " Specify encoding
+set nrformats-=octal            " Treat octal numbers as decimal when incrementing
+set clipboard=unnamed           " Synchronize system and vim clipboards
+set backspace=indent,eol,start  " Restore backspace functionality
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 02. Events                                                                 "
