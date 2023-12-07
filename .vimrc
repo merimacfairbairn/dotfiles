@@ -18,8 +18,8 @@ inoreabbrev lorem Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed 
 " Map F5 to save and execute python script
 augroup run_python
     autocmd!
-    autocmd FileType python noremap <buffer> <F5> :w<CR>:exec '!clear && python3 %'<CR>
-    autocmd FileType python inoremap <buffer> <F5> <esc>:w<CR>:exec '!clear && python3 %'<CR>
+    autocmd FileType python noremap <buffer> <F5> :w<CR>:exec '!clear && python' shellescape(@%, 1)<CR>
+    autocmd FileType python inoremap <buffer> <F5> <esc>:w<CR>:exec '!clear && python' shellescape(@%, 1)<CR>
 augroup END
 
 " }}}
@@ -47,6 +47,7 @@ augroup filetype_vim
     autocmd!
     autocmd FileType vim setlocal foldmethod=marker
     autocmd FileType vim setlocal foldlevel=0
+    autocmd FileType vim setlocal wrap
 augroup END
 
 " Set indent fold method for py files and unfold everything at start
@@ -54,6 +55,15 @@ augroup filetype_py
     autocmd!
     autocmd FileType python setlocal foldmethod=indent
     autocmd FileType python setlocal foldlevel=99
+    autocmd FileType python setlocal nowrap
+augroup END
+
+" Txt file configuration
+augroup filetype_txt
+    autocmd!
+    autocmd FileType text setlocal nofoldenable
+    autocmd FileType text setlocal linebreak
+    autocmd FileType text setlocal wrap
 augroup END
 
 " Html skeleton on opening a new html file
@@ -61,7 +71,6 @@ augroup filetype_htlm
     autocmd!
     autocmd BufNewFile *.html   0r ~/.vim/skeletons/skeleton.html
     autocmd FileType html setlocal matchpairs+=<:>
-    autocmd FileType html setlocal showmatch
     autocmd FileType html setlocal matchtime=3
 augroup END
 
@@ -100,15 +109,16 @@ set confirm                 " Display confirmation message when closing an unsav
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set autoread                                    " Monitor changes
 set autoindent                                  " Auto-indent
-set tabstop=4                                   " tab spacing
-set softtabstop=4                               " unify
-set shiftwidth=4                                " indent/unindent by 4 columns
-set shiftround                                  " always indent/unindent to the nearest tabstop
-set expandtab                                   " use spaces instead of tabs
-set smartindent                                 " automatically insert one extra level of indentation
-set smarttab                                    " use tabs at the start of a line, spaces elsewhere
-set nowrap                                      " don't wrap text
-set linebreak                                   " don't break text
+set tabstop=4                                   " Tab spacing
+set softtabstop=4                               " Unify
+set shiftwidth=4                                " Indent/unindent by 4 columns
+set shiftround                                  " Always indent/unindent to the nearest tabstop
+set expandtab                                   " Use spaces instead of tabs
+set smartindent                                 " Automatically insert one extra level of indentation
+set smarttab                                    " Use tabs at the start of a line, spaces elsewhere
+set nowrap                                      " Don't wrap text
+set textwidth=0                                 " Break lines at line...
+set linebreak                                   " Don't break text
 set foldlevel=99                                " Unfold everything at start
 call matchadd("TrailingWhitespace", '\v\s+$')   " Highlight trailing whitespace
 
