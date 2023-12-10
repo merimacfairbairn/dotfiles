@@ -19,7 +19,14 @@ inoreabbrev lorem Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed 
 augroup run_python
     autocmd!
     autocmd FileType python noremap <buffer> <F5> :w<CR>:exec '!clear && python' shellescape(@%, 1)<CR>
-    autocmd FileType python inoremap <buffer> <F5> <esc>:w<CR>:exec '!clear && python' shellescape(@%, 1)<CR>
+    autocmd FileType python inoremap <buffer> <F5> <ESC>:w<CR>:exec '!clear && python' shellescape(@%, 1)<CR>
+augroup END
+
+" Map F5 to compile and execute c script
+augroup run_c
+    autocmd!
+    autocmd FileType c noremap <buffer> <F5> :w<CR>:exec '!clear && gcc % -o %< && ./%<'<CR>
+    autocmd FileType c inoremap <buffer> <F5> <ESC>:w<CR>:exec '!clear && gcc % -o %< && ./%<'<CR>
 augroup END
 
 " }}}
@@ -36,6 +43,7 @@ set encoding=utf-8              " Specify encoding
 set nrformats-=octal            " Treat octal numbers as decimal when incrementing
 set clipboard=unnamed           " Synchronize system and vim clipboards
 set backspace=indent,eol,start  " Restore backspace functionality
+set shortmess=a                 " Use abbrebiations
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 02. Events                                                                 "
@@ -79,7 +87,7 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax enable                   " Enable syntax highlighting
 set t_Co=256                    " Enable 256-color mode
-set termguicolors
+set termguicolors               " Enable GUI colors in terminal
 set background=dark             " Set dark background
 colorscheme gruvbox             " Set colorscheme
 set guifont=JetBrainsMono\ 10   " Set font
