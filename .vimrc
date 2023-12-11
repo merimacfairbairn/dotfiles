@@ -50,7 +50,6 @@ set shortmess=a                 " Use abbrebiations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 filetype plugin indent on       " filetype detection[ON] plugin[ON] indent[ON]
 
-" Enable code folding(marker) for vim files
 augroup filetype_vim
     autocmd!
     autocmd FileType vim setlocal foldmethod=marker
@@ -58,7 +57,13 @@ augroup filetype_vim
     autocmd FileType vim setlocal wrap
 augroup END
 
-" Set indent fold method for py files and unfold everything at start
+augroup filetype_c
+    autocmd!
+    autocmd FileType c setlocal foldmethod=syntax
+    autocmd FileType c setlocal foldlevel=99
+    autocmd FileType c setlocal nowrap
+augroup END
+
 augroup filetype_py
     autocmd!
     autocmd FileType python setlocal foldmethod=indent
@@ -66,7 +71,6 @@ augroup filetype_py
     autocmd FileType python setlocal nowrap
 augroup END
 
-" Txt file configuration
 augroup filetype_txt
     autocmd!
     autocmd FileType text setlocal nofoldenable
@@ -74,7 +78,6 @@ augroup filetype_txt
     autocmd FileType text setlocal wrap
 augroup END
 
-" Html skeleton on opening a new html file
 augroup filetype_htlm
     autocmd!
     autocmd BufNewFile *.html   0r ~/.vim/skeletons/skeleton.html
