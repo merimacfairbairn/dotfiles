@@ -1,18 +1,72 @@
 " PLUGINS ---------------------------------------------------------------- {{{
 call plug#begin('~/.vim/plugged')
 
-Plug 'davidhalter/jedi-vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'mbbill/undotree'
+Plug 'tpope/vim-fugitive'
 
 call plug#end()
 
+" UndoTree directory
+if has("persistent_undo")
+   let target_path = expand('~/.undodir')
+
+    if !isdirectory(target_path)
+        call mkdir(target_path, "p", 0700)
+    endif
+
+    let &undodir=target_path
+    set undofile
+endif
+
 " }}}
 " MAPPINGS --------------------------------------------------------------- {{{
+" Set space as the mapleader key
+let mapleader= ' '
 " Map jj to escape in insert mode
 inoremap jj <esc>
-" Space to toggle folding
-nnoremap <space> za
 " Set Ctrl-e to toggle explorer
-nnoremap <C-e> :Lexplore<CR>
+nnoremap <leader>pv :Ex<CR>
+" Move selected lines in visual mode
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+" Keep cursor in the middle when searching
+nnoremap n nzzzv
+nnoremap N Nzzzv
+" Keep cursor in the middle when using CTRL-d/CTRL-u
+nnoremap <C-d> <C-d>zz
+nnoremap <C-u> <C-u>zz
+" Keep cursor on the same spot when concatenating lines with J
+nnoremap J mzJ`z
+" Overwrite without copying the overwritten item
+xnoremap <leader>p "_dP
+" Yank into the clipboard register
+nnoremap <leader>y "+y
+vnoremap <leader>y "+y
+nnoremap <leader>Y "+Y
+" Delete into the void register
+nnoremap <leader>d "_d
+vnoremap <leader>d "_d
+" Move through quickfix
+nnoremap <C-k> :cnext<CR>zz
+nnoremap <C-j> :cprev<CR>zz
+nnoremap <leader>k :lnext<CR>zz
+nnoremap <leader>j :lprev<CR>zz
+" Substitute the word the cursor is on throughout the document
+nnoremap <leader>s :%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>
+" Unmap Q
+nmap Q <Nop>
+" Undoo tree
+nnoremap <leader>u :UndotreeToggle<CR>
+"Vim-fugitive
+nnoremap <leader>gs :Git<CR>
+" Autocompletion
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
 " Dummy text
 inoreabbrev lorem Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
 " Map F5 to save and execute python script
@@ -34,6 +88,7 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 01. General                                                                "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"{{{
 set nocompatible                " Get rid of Vi support
 set nobackup                    " Don't create backup files
 set noswapfile                  " Don't create swap files
@@ -44,10 +99,11 @@ set nrformats-=octal            " Treat octal numbers as decimal when incrementi
 set clipboard=unnamed           " Synchronize system and vim clipboards
 set backspace=indent,eol,start  " Restore backspace functionality
 set shortmess=a                 " Use abbrebiations
-
+" }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 02. Events                                                                 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" {{{
 filetype plugin indent on       " filetype detection[ON] plugin[ON] indent[ON]
 
 augroup filetype_vim
@@ -61,14 +117,12 @@ augroup filetype_c
     autocmd!
     autocmd FileType c setlocal foldmethod=syntax
     autocmd FileType c setlocal foldlevel=99
-    autocmd FileType c setlocal nowrap
 augroup END
 
 augroup filetype_py
     autocmd!
     autocmd FileType python setlocal foldmethod=indent
     autocmd FileType python setlocal foldlevel=99
-    autocmd FileType python setlocal nowrap
 augroup END
 
 augroup filetype_txt
@@ -84,21 +138,23 @@ augroup filetype_htlm
     autocmd FileType html setlocal matchpairs+=<:>
     autocmd FileType html setlocal matchtime=3
 augroup END
-
+" }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 03. Theme/Colors                                                           "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" {{{
 syntax enable                   " Enable syntax highlighting
 set t_Co=256                    " Enable 256-color mode
-set termguicolors               " Enable GUI colors in terminal
+set termguicolors               " Good colors
 set background=dark             " Set dark background
 colorscheme gruvbox             " Set colorscheme
 set guifont=JetBrainsMono\ 10   " Set font
 hi TrailingWhitespace ctermbg=red guibg=#fb4934
-
+" }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 04. Vim UI                                                                 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" {{{
 set number                  " Show line numbers
 set relativenumber          " Show relative numbers
 set cursorline              " highlight current line
@@ -114,10 +170,12 @@ set showcmd                 " Show executed commands
 set showmatch               " Show matching brackets
 set hidden                  " Switch between buffers quickly
 set confirm                 " Display confirmation message when closing an unsaved file
-
+set scrolloff=8             " Always have 8 lines between the cursor and the end of the screen
+" }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 05. Text Formatting/Layout                                                 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" {{{
 set autoread                                    " Monitor changes
 set autoindent                                  " Auto-indent
 set tabstop=4                                   " Tab spacing
@@ -132,7 +190,7 @@ set textwidth=0                                 " Break lines at line...
 set linebreak                                   " Don't break text
 set foldlevel=99                                " Unfold everything at start
 call matchadd("TrailingWhitespace", '\v\s+$')   " Highlight trailing whitespace
-
+" }}}
 " }}}
 " STATUS LINE ------------------------------------------------------------ {{{
 " Status-bar color scheme
