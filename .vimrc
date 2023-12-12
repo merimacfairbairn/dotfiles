@@ -10,6 +10,18 @@ Plug 'tpope/vim-fugitive'
 
 call plug#end()
 
+" UndoTree directory
+if has("persistent_undo")
+   let target_path = expand('~/.undodir')
+
+    if !isdirectory(target_path)
+        call mkdir(target_path, "p", 0700)
+    endif
+
+    let &undodir=target_path
+    set undofile
+endif
+
 " }}}
 " MAPPINGS --------------------------------------------------------------- {{{
 " Set space as the mapleader key
@@ -51,6 +63,10 @@ nmap Q <Nop>
 nnoremap <leader>u :UndotreeToggle<CR>
 "Vim-fugitive
 nnoremap <leader>gs :Git<CR>
+" Autocompletion
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
 " Dummy text
 inoreabbrev lorem Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
 " Map F5 to save and execute python script
