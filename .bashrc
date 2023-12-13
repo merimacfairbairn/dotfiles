@@ -59,3 +59,4 @@ bind "set menu-complete-display-prefix on"
 # Disaple prompt mangling
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 alias config='/usr/bin/git --git-dir=/home/larry/.cfg/ --work-tree=/home/larry'
+alias vim='nvim'
