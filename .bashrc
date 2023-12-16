@@ -27,7 +27,12 @@ fi
 # Virtual env
 PS1='\[\e[38;5;142m\]╭──── \[\e[38;5;108;2m\]$(git branch 2>/dev/null | grep '"'"'*'"'"' | colrm 1 2) \[\e[0;38;5;107m\]\w \[\e[38;5;172m\]`basename "$VIRTUAL_ENV"`\n\[\e[38;5;142m\]╰─ ❱ \[\e[0m\]'
 
-PS2='-> '
+PS2='> '
+
+# Run tmux upon every shell login
+if [ -x "$(command -v tmux)" ] && [ -n "${DISPLAY}" ] && [ -z "${TMUX}" ]; then
+    exec tmux new-session -A -s ${USER} >/dev/null 2>&1
+fi
 
 # Set history formatting and ignore duplicates
 HISTTIMEFORMAT="%F %T "
