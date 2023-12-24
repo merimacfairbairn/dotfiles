@@ -41,7 +41,7 @@ HISTFILESIZE=2000
 set -o vi
 
 # Set vim as a default editor
-export VISUAL=vim
+export VISUAL=nvim
 export EDITOR="$VISUAL"
 
 # If there are multiple matches for completion, Tab should cycle through them

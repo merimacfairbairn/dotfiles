@@ -1,0 +1,6 @@
+# Set vim as a default editor
+export VISUAL=nvim
+export EDITOR="$VISUAL"
+
+alias config='/usr/bin/git --git-dir=/home/larry/.cfg/ --work-tree=/home/larry'
+alias vim='nvim'
