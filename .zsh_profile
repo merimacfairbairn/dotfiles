@@ -2,5 +2,7 @@
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 
+if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then exec startx; fi
+
 alias config='/usr/bin/git --git-dir=/home/larry/.cfg/ --work-tree=/home/larry'
 alias vim='nvim'
