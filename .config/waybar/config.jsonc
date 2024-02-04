@@ -11,39 +11,20 @@
     "margin-right": 10,
     // Choose the order of the modules
     "modules-left": [
-        // "custom/power",
-        // "custom/launcher",
         "hyprland/workspaces",
         "cpu",
         "memory"
-        //"custom/updates"
-        // "temperature",
-        // "disk",
     ],
     "modules-center": [
-        // "custom/music"
+        // "custom/music",
         "clock"
     ],
     "modules-right": [
         "network",
         "pulseaudio",
-        // "backlight",
-        // "battery",
         "custom/notifications"
-        // "tray",
         // "custom/weather",
-        // "custom/cycle_wall",
-        // "custom/clipboard",
-        // "custom/custom"
     ],
-    "custom/launcher": {
-        "format": "{}",
-        "tooltip": true,
-        "exec": "echo '{\"text\":\"\",\"tooltip\":\"Drun | Run\"}'",
-        "return-type": "json",
-        "on-click": "pkill fuzzel || sleep 0.15 && fuzzel",
-        "on-click-right": "pkill fuzzel || sleep 0.15 && fuzzel",
-    },
     "hyprland/workspaces": {
         // "format": "{icon} {name}",
         "format": "",
@@ -67,36 +48,49 @@
         "on-click": "kitty --start-as=fullscreen sh -c 'btop'",
         "interval": 2
     },
-    "temperature": {
-        // "thermal-zone": 2,
-        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
-        "critical-threshold": 40,
-        "format-critical": "{icon} {temperatureC}°C",
-        "format": "{icon} {temperatureC}°C",
-        "format-icons": [
-            "",
-            "",
-            ""
-        ],
-        "tooltip": true,
-        "on-click": "kitty --start-as=fullscreen sh -c 'btop'",
-        "interval": 2
-    },
+    // "temperature": {
+    //     // "thermal-zone": 2,
+    //     // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+    //     "critical-threshold": 40,
+    //     "format-critical": "{icon} {temperatureC}°C",
+    //     "format": "{icon} {temperatureC}°C",
+    //     "format-icons": [
+    //         "",
+    //         "",
+    //         ""
+    //     ],
+    //     "tooltip": true,
+    //     "on-click": "kitty --start-as=fullscreen sh -c 'btop'",
+    //     "interval": 2
+    // },
+    // "battery": {
+    //     "states": {
+    //         "good": 100,
+    //         "warning": 30,
+    //         "critical": 10
+    //     },
+    //     "format": "{icon} {capacity}%",
+    //     "format-charging": "󱐋 {capacity}%",
+    //     "format-plugged": " {capacity}%",
+    //     "format-alt": "{icon} {time}",
+    //     // "format-good": "", // An empty format will hide the module
+    //     "format-full": "󰁹 {capacity}%",
+    //     "format-icons": [
+    //         "<span foreground='red'><sup></sup></span>",
+    //         "",
+    //         "",
+    //         "",
+    //         "",
+    //         ""
+    //     ],
+    //     "interval": 2
+    // },
     // "disk":{
     //     "format": " {percentage_used}% ({free})",
     //     "tooltip": true,
     //     "on-click": "kitty --start-as=fullscreen sh -c 'btop'",
     //     "interval": 2
     // },
-    "custom/updates": {
-        "format": "{}",
-        "exec": "~/.local/scripts/updates",
-        "on-click": "~/.local/scripts/updates update",
-        "interval": 600,
-        "tooltip": true,
-        // "tooltip-format": "{}",
-        // "exec-tooltip": "~/.scripts/updates tooltip"
-    },
     // "custom/music": {
     //     "format": "{icon}{}",
     //     "format-icons": {
@@ -106,7 +100,7 @@
     //     },
     //     "escape": true,
     //     "tooltip": true,
-    //     "exec": "~/.scripts/caway -b 10 -e",
+    //     "exec": "~/.local/scripts/caway -b 10 -e",
     //     "return-type": "json",
     //     "on-click": "playerctl play-pause",
     //     "on-scroll-up": "playerctl previous",
@@ -134,8 +128,11 @@
             "ethernet": "",
             "disconnected": "⚠",
             "wifi": [
-                "睊",
-                "直"
+                "󰤫",
+                "󰤯",
+                "󰤟",
+                "󰤥",
+                "󰤨"
             ]
         },
         "interval": 2
@@ -144,16 +141,16 @@
         // "scroll-step": 1, // %, can be a float
         "format": "{icon} {volume}%", // {format_source}
         "format-bluetooth": "{icon} {volume}%", // {format_source}
-        "format-bluetooth-muted": "", // {format_source}
+        "format-bluetooth-muted": "󰂲", // {format_source}
         "format-muted": "", // {format_source}
         "format-source": "{volume}% ",
         "format-source-muted": "",
         "format-icons": {
-            "headphone": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": " ",
+            "headphone": "󰋋",
+            "headset": "󰋎",
+            "phone": "󰏲",
+            "portable": "󰏲",
+            "car": "󰄋",
             "default": [
                 "",
                 "",
@@ -163,50 +160,6 @@
         "on-click": "pamixer -t",
         "on-click-right": "kitty --start-as=fullscreen sh -c 'pulsemixer'"
     },
-    // "backlight": {
-    //     // "device": "acpi_video1",
-    //     "format": "{icon} {percent}%",
-    //     "format-icons": [
-    //         "",
-    //         "",
-    //         "",
-    //         "",
-    //         "",
-    //         "",
-    //         "",
-    //         "",
-    //         ""
-    //     ],
-    //     "on-scroll-up": "light -A 1",
-    //     "on-scroll-down": "light -U 1",
-    //     "interval": 2
-    // },
-    // "battery":{
-    //     "states": {
-    //         "good": 100,
-    //         "warning": 30,
-    //         "critical": 10
-    //     },
-    //     "format": "{icon} {capacity}%",
-    //     "format-charging": " {capacity}%",
-    //     "format-plugged": " {capacity}%",
-    //     "format-alt": "{icon} {time}",
-    //     // "format-good": "", // An empty format will hide the module
-    //     "format-full": " {capacity}%",
-    //     "format-icons": [
-    //         "",
-    //         "",
-    //         "",
-    //         "",
-    //         "",
-    //         "",
-    //         "",
-    //         "",
-    //         "",
-    //         ""
-    //     ],
-    //     "interval": 2
-    // },
     "custom/notifications": {
         "tooltip": false,
         "format": "{icon}",
@@ -223,10 +176,6 @@
         "on-click-right": "sleep 0.15 && swaync-client -d -sw",
         "escape": true
     },
-    // "tray": {
-    //     "icon-size": 15,
-    //     "spacing": 15
-    // },
     "clock": {
         "timezone": "Europe/London",
         "format": " {:%d <small>%a</small> %H:%M}",
@@ -239,58 +188,17 @@
         "format-calendar-weekdays": "<span color='#f9e2af'><b>{}</b></span>",
         "interval": 60
     },
-    "idle_inhibitor": {
-        "format": "{icon}",
-        "format-icons": {
-            "activated": "",
-            "deactivated": ""
-        }
-    },
-    "custom/weather": {
-        "tooltip": true,
-        "format": "{}",
-        "exec": "~/.scripts/tools/expand weather",
-        "return-type": "json"
-    },
-    "custom/ss": {
-        "format": "{}",
-        "exec": "~/./scripts/tools/expand ss-icon",
-        "return-type": "json",
-        "on-click": "~/.scripts/screenshot_full"
-    },
-    "custom/cycle_wall": {
-        "format": "{}",
-        "exec": "~/.scripts/tools/expand wall",
-        "return-type": "json",
-        // "interval": 1,
-        "on-click": "~/.scripts/tools/expand cycle",
-        "on-click-right": "~/.scripts/tools/expand cycler"
-    },
-    "custom/clipboard": {
-        "format": "{}",
-        "exec": "~/.scripts/tools/expand clipboard",
-        "return-type": "json",
-        // Window position is managed in Hyperland config's windowrulev2
-        "on-click": "pkill tofi || sleep 0.15 && cliphist list | tofi -c ~/.config/tofi/tofi.clip.conf | cliphist decode | wl-copy",
-        "on-click-middle": "rm -f ~/.cache/cliphist/db",
-        "on-click-right": "pkill tofi || sleep 0.15 && cliphist list | tofi -c ~/.config/tofi/tofi.clip.conf | cliphist delete",
-        // Here "-l top_right -x -15 -y 10" doesn't matter as '-n' mode is used
-        // "on-click": "pkill wofi || cliphist list | wofi --dmenu -p clippick -l top_right -x -15 -y 10 -n | cliphist decode | wl-copy",
-        // "on-click-middle": "rm -f ~/.cache/cliphist/db",
-        // "on-click-right": "pkill wofi || cliphist list | wofi --dmenu -p clippick -l top_right -x -15 -y 10 -n | cliphist delete",
-        "escape": true
-    },
-    "custom/power": {
-        "format": "{}",
-        // "exec": "~/.scripts/tools/expand power",
-        "exec": "echo '{\"text\":\"⏻\",\"tooltip\":\"Power\"}'",
-        "return-type": "json",
-        "on-click": "~/.config/wlogout/launch.sh"
-    },
-    "custom/custom": {
-        "format": "{}",
-        "exec": "~/.scripts/tools/expand arrow-icon",
-        "on-click": "~/.scripts/tools/expand_toolbar",
-        "return-type": "json"
-    }
+    // "idle_inhibitor": {
+    //     "format": "{icon}",
+    //     "format-icons": {
+    //         "activated": "",
+    //         "deactivated": ""
+    //     }
+    // },
+    // "custom/weather": {
+    //     "tooltip": true,
+    //     "format": "{}",
+    //     "exec": "~/.scripts/tools/expand weather",
+    //     "return-type": "json"
+    // },
 }
