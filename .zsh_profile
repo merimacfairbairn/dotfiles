@@ -1,6 +1,7 @@
 # Set vim as a default editor
 export VISUAL=nvim
 export EDITOR="$VISUAL"
+export GOPATH=$HOME/.go/
 
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
     exec Hyprland;
