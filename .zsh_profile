@@ -3,6 +3,9 @@ export VISUAL=nvim
 export EDITOR="$VISUAL"
 export GOPATH=$HOME/.go/
 
+# User .cache dir instead of $HOME
+export ZSH_COMPDUMP=$ZSH/.cache/.zcompdump-$HOST
+
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
     exec Hyprland;
 fi
