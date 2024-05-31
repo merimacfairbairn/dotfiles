@@ -72,6 +72,9 @@ ZSH_THEME="frontcube"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
+# Use .cache dir instead of $HOME
+export ZSH_COMPDUMP=$ZSH/.cache/.zcompdump-$HOST
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
