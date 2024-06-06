@@ -39,13 +39,13 @@
     "cpu": {
         "format": " {usage}%",
         "tooltip": true,
-        "on-click": "kitty --start-as=fullscreen sh -c 'btop'",
+        "on-click": "kitty --start-as=fullscreen sh -c 'htop'",
         "interval": 2
     },
     "memory": {
         "format": " {}%",
         "tooltip": true,
-        "on-click": "kitty --start-as=fullscreen sh -c 'btop'",
+        "on-click": "kitty --start-as=fullscreen sh -c 'htop'",
         "interval": 2
     },
     // "temperature": {
