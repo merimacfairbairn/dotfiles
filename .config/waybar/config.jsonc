@@ -1,32 +1,29 @@
 {
-    "layer": "top", // Waybar at top layer
-    "position": "top", // Waybar position (top|bottom|left|right)
-    //"gtk-layer-shell": "false",
-    //"height": 45, // Waybar height (to be removed for auto height)
-    // "width": 2560, // Waybar width
-    "spacing": 0, // Gaps between modules (0px) Adjusted in the css
+    "reload_style_on_change": true,
+
+    "layer": "top",
+    "position": "top",
+
+    "spacing": 0,
     "margin-top": 0,
-    //"margin-bottom":-10,
     "margin-left": 10,
     "margin-right": 10,
-    // Choose the order of the modules
+
     "modules-left": [
         "hyprland/workspaces",
         "cpu",
         "memory"
     ],
     "modules-center": [
-        // "custom/music",
         "clock"
     ],
     "modules-right": [
         "network",
-        "pulseaudio",
+        "wireplumber",
         "custom/notifications"
-        // "custom/weather",
     ],
+
     "hyprland/workspaces": {
-        // "format": "{icon} {name}",
         "format": "",
         "format-icons": {
             "active": "",
@@ -36,86 +33,28 @@
         "on-scroll-down": "hyprctl dispatch workspace e+1",
         "on-click": "activate"
     },
+
     "cpu": {
+        "interval": 5,
         "format": " {usage}%",
-        "tooltip": true,
-        "on-click": "kitty --start-as=fullscreen sh -c 'htop'",
-        "interval": 2
+        "tooltip": true
     },
+
     "memory": {
+        "interval": 5,
         "format": " {}%",
-        "tooltip": true,
-        "on-click": "kitty --start-as=fullscreen sh -c 'htop'",
-        "interval": 2
+        "tooltip": true
     },
-    // "temperature": {
-    //     // "thermal-zone": 2,
-    //     // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
-    //     "critical-threshold": 40,
-    //     "format-critical": "{icon} {temperatureC}°C",
-    //     "format": "{icon} {temperatureC}°C",
-    //     "format-icons": [
-    //         "",
-    //         "",
-    //         ""
-    //     ],
-    //     "tooltip": true,
-    //     "on-click": "kitty --start-as=fullscreen sh -c 'btop'",
-    //     "interval": 2
-    // },
-    // "battery": {
-    //     "states": {
-    //         "good": 100,
-    //         "warning": 30,
-    //         "critical": 10
-    //     },
-    //     "format": "{icon} {capacity}%",
-    //     "format-charging": "󱐋 {capacity}%",
-    //     "format-plugged": " {capacity}%",
-    //     "format-alt": "{icon} {time}",
-    //     // "format-good": "", // An empty format will hide the module
-    //     "format-full": "󰁹 {capacity}%",
-    //     "format-icons": [
-    //         "<span foreground='red'><sup></sup></span>",
-    //         "",
-    //         "",
-    //         "",
-    //         "",
-    //         ""
-    //     ],
-    //     "interval": 2
-    // },
-    // "disk":{
-    //     "format": " {percentage_used}% ({free})",
-    //     "tooltip": true,
-    //     "on-click": "kitty --start-as=fullscreen sh -c 'btop'",
-    //     "interval": 2
-    // },
-    // "custom/music": {
-    //     "format": "{icon}{}",
-    //     "format-icons": {
-    //         // "Playing": " ", // Uncomment if not using the dynamic script
-    //         "Paused": " ",
-    //         "Stopped": "&#x202d;ﭥ " // This stop symbol is RTL. So &#x202d; is left-to-right override.
-    //     },
-    //     "escape": true,
-    //     "tooltip": true,
-    //     "exec": "~/.local/scripts/caway -b 10 -e",
-    //     "return-type": "json",
-    //     "on-click": "playerctl play-pause",
-    //     "on-scroll-up": "playerctl previous",
-    //     "on-scroll-down": "playerctl next",
-    //     "on-click-right": "amberol",
-    //     "max-length": 35
-    // },
+
     "hyprland/window": {
         "format": "{}",
         "separate-outputs": true,
         "max-length": 35
     },
+
     "network": {
-        // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format": "↕{bandwidthTotalBytes}",
+        "interface": "wlan0",
+        "format": "↕{bandwidthTotalBytes} {icon}",
         "format-disconnected": "{icon} No Internet",
         "format-linked": " {ifname} (No IP)",
         "format-alt": "↕{bandwidthUpBytes} | ↕{bandwidthDownBytes}",
@@ -123,7 +62,6 @@
         "tooltip-format-wifi": "{icon} {essid} ({signalStrength}%)",
         "tooltip-format-ethernet": "{icon} {ipaddr}/{cidr}",
         "tooltip-format-disconnected": "{icon} Disconnected",
-        "on-click-right": "nm-connection-editor",
         "format-icons": {
             "ethernet": "",
             "disconnected": "⚠",
@@ -137,29 +75,21 @@
         },
         "interval": 2
     },
-    "pulseaudio": {
-        // "scroll-step": 1, // %, can be a float
-        "format": "{icon} {volume}%", // {format_source}
-        "format-bluetooth": "{icon} {volume}%", // {format_source}
-        "format-bluetooth-muted": "󰂲", // {format_source}
-        "format-muted": "", // {format_source}
-        "format-source": "{volume}% ",
-        "format-source-muted": "",
+
+    "wireplumber": {
+        "scroll-step": 2,
+        "format": "{icon} {volume}%",
+        "format-muted": "",
         "format-icons": {
-            "headphone": "󰋋",
-            "headset": "󰋎",
-            "phone": "󰏲",
-            "portable": "󰏲",
-            "car": "󰄋",
             "default": [
                 "",
                 "",
                 ""
             ]
         },
-        "on-click": "pamixer -t",
-        "on-click-right": "kitty --start-as=fullscreen sh -c 'pulsemixer'"
+        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
     },
+
     "custom/notifications": {
         "tooltip": false,
         "format": "{icon}",
@@ -172,33 +102,31 @@
         "return-type": "json",
         "exec-if": "which swaync-client",
         "exec": "swaync-client -swb",
-        "on-click": "sleep 0.15 && swaync-client -t -sw",
-        "on-click-right": "sleep 0.15 && swaync-client -d -sw",
+        "on-click": "swaync-client -t -sw",
+        "on-click-right": "swaync-client -d -sw",
         "escape": true
     },
+
     "clock": {
         "timezone": "Europe/London",
         "format": " {:%d <small>%a</small> %H:%M}",
         "format-alt": " {:%A %b %d %Y (%V) | %r}",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "calendar-weeks-pos": "right",
-        "today-format": "<span color='#f38ba8'><b><u>{}</u></b></span>",
-        "format-calendar": "<span color='#f2cdcd'><b>{}</b></span>",
-        "format-calendar-weeks": "<span color='#94e2d5'><b>W{:%U}</b></span>",
-        "format-calendar-weekdays": "<span color='#f9e2af'><b>{}</b></span>",
-        "interval": 60
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "calendar": {
+            "mode"          : "month",
+            "mode-mon-col"  : 3,
+            "weeks-pos"     : "right",
+            "on-scroll"     : 1,
+            "format": {
+                "months":     "<span color='#ebdbb2'><b>{}</b></span>",
+                "days":       "<span color='#ebdbb2'><b>{}</b></span>",
+                "weeks":      "<span color='#98971a'><b>{}</b></span>",
+                "weekdays":   "<span color='#d79921'><b>{}</b></span>",
+                "today":      "<span color='#fb4934'><b>{}</b></span>"
+            },
+        },
+        "actions": {
+            "on-click-right": "mode",
+        },
     },
-    // "idle_inhibitor": {
-    //     "format": "{icon}",
-    //     "format-icons": {
-    //         "activated": "",
-    //         "deactivated": ""
-    //     }
-    // },
-    // "custom/weather": {
-    //     "tooltip": true,
-    //     "format": "{}",
-    //     "exec": "~/.scripts/tools/expand weather",
-    //     "return-type": "json"
-    // },
 }
