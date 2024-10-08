@@ -70,7 +70,7 @@ ZSH_THEME="frontcube"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git gitfast zsh-autosuggestions zsh-syntax-highlighting)
 
 # Use .cache dir instead of $HOME
 export ZSH_COMPDUMP=$ZSH/.cache/.zcompdump-$HOST
