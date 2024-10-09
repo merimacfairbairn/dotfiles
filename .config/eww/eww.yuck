@@ -1,0 +1,186 @@
+; Vars
+(deflisten music :initial "" "playerctl --follow metadata --format '{{ artist }} - {{ title }}' || true")
+(defpoll clock_time :interval "5m" "date +\%I")
+(defpoll clock_minute :interval "5s" "date +\%M")
+(defpoll clock_date :interval "10h" "date '+%d/%m'")
+(defpoll volume :interval "1s" "scripts/getvol")
+(defpoll mic_percent :interval "3s" "amixer -D pulse sget Capture | grep 'Left:' | awk -F'[][]' '{ print $2 }' | tr -d '%'")
+(defpoll time :interval "10s" "date '+%H:%M %b %d, %Y'")
+
+(defvar vol_rev false)
+(defvar time_rev false)
+(defvar wifi_rev false)
+
+(defpoll COL_WLAN :interval "1m" "~/.config/eww/scripts/wifi --COL")
+(defpoll ESSID_WLAN :interval "1m" "~/.config/eww/scripts/wifi --ESSID")
+(defpoll WLAN_ICON :interval "1m" "~/.config/eww/scripts/wifi --ICON")
+
+(defpoll calendar_day :interval "20h" "date '+%d'")
+(defpoll calendar_year :interval "20h" "date '+%Y'")
+
+; Widgets
+(defwidget sep []
+  (box :class "module-2" :vexpand "false" :hexpand "false"
+    (label :class "separ" :text "|")))
+
+(defwidget wifi []
+  (eventbox :onhover "eww update wifi_rev=true" :onhoverlost "eww update wifi_rev=false"
+		(box :vexpand "false" :hexpand "false" :space-evenly "false"
+            (button :class "module-wifi" :wrap "false" :limit-width 12 :style "color: ${COL_WLAN};" WLAN_ICON)
+            (revealer :transition "slideleft"
+                      :reveal wifi_rev
+                      :duration "350ms"
+                (label :class "module_essid"
+
+                       :text ESSID_WLAN
+                       :tooltip "${round(EWW_NET["wlan0"].NET_UP / 1000000, 2)}Mb - ${round(EWW_NET["wlan0"].NET_DOWN / 1000000, 2)}Mb"
+                       :orientation "h"
+                  )))))
+
+(defwidget mem []
+		(box :class "mem_module" :vexpand "false" :hexpand "false"
+            (circular-progress :value {EWW_RAM.used_mem_perc}
+                :class "membar"
+                :thickness 4
+            (button
+                :class "iconmem"
+                :limit-width 2
+                :tooltip "${round(EWW_RAM.used_mem_perc, 0)}% ram"
+                :show_truncated false
+                :wrap false
+                "󰄯"))))
+
+(defwidget cpu []
+		(box :class "cpu_module" :vexpand "false" :hexpand "false"
+            (circular-progress :value {EWW_CPU.avg}
+                :class "cpubar"
+                :thickness 4
+            (button
+                :class "iconcpu"
+                :limit-width 2
+                :tooltip "${round(EWW_CPU.avg, 0)}% cpu"
+                :show_truncated false
+                :wrap false
+                "󰄯"))))
+
+(defwidget clock_module []
+  (eventbox :onhover "eww update time_rev=true"
+			  :onhoverlost "eww update time_rev=false"
+    (box :class "module" :space-evenly "false" :orientation "h" :spacing "3"
+      (label :text clock_time :class "clock_time_class" )
+      (label :text ":" :class "clock_time_sep" )
+      (label :text clock_minute :class "clock_minute_class")
+	  (revealer :transition "slideleft"
+			  :reveal time_rev
+			  :duration "350ms"
+      (button :class "clock_date_class"
+             :onclick "$HOME/.config/eww/scripts/pop calendar" clock_date
+        )
+  ))))
+
+(defwidget sound []
+  (eventbox :onhover "eww update vol_rev=true"
+			  :onhoverlost "eww update vol_rev=false"
+  (box :class "module-2" :space-evenly "false" :orientation "h" :spacing "5"
+	(button   :onclick "./scripts/pop audio"   :class "volume_icon" "")
+	(revealer :transition "slideleft"
+			  :reveal vol_rev
+			  :duration "350ms"
+        (scale    :class "volbar"
+                  :value volume
+                  :orientation "h"
+                  :tooltip "${volume}%"
+                  :max 100
+                  :min 0
+                  :onchange "amixer -D pulse sset Master {}%")
+        ))))
+
+(defwidget workspaces []
+  (box :class "workspaces"
+       :orientation "h"
+       :space-evenly true
+       :halign "start"
+       :spacing 10
+    (button :onclick "hyprctl dispatch workspace 4" "")
+    (button :onclick "hyprctl dispatch workspace 7" "󰈹")
+    (button :onclick "hyprctl dispatch workspace 9" "")))
+
+(defwidget music []
+  (box :class "music"
+       :orientation "h"
+       :space-evenly false
+       :halign "center"
+    {music != "" ? "🎵${music}" : ""}))
+
+; Align elements on the bar
+(defwidget left []
+    (box :orientation "h"
+         :space-evenly false
+         :halign "start"
+         :class "left_modules"
+         (workspaces)
+         ))
+
+(defwidget center []
+    (box :orientation "h"
+         :space-evenly false
+         :halign "center"
+         :class "center_modules"
+         (music)
+         ))
+
+(defwidget right []
+    (box :orientation "h"
+         :space-evenly false
+         :halign "end"
+         :class "right_modules"
+         (sound)
+         (wifi)
+         (sep)
+         (mem)
+         (cpu)
+         (sep)
+         (clock_module)
+     ))
+
+
+(defwidget bar_1 []
+  (centerbox :orientation "h"
+    (left)
+    (center)
+    (right)))
+
+; Call bar
+(defwindow bar
+  :monitor 0
+  :exclusive true
+  :focusable false
+  :windowtype "dock"
+  :geometry (geometry :x "0%"
+                      :y "1%"
+                      :width "99%"
+                      :height "10px"
+                      :anchor "top center")
+  (bar_1))
+
+
+;ADDITIONAL WINDOWS
+
+; Calendar
+(defwidget cal []
+    (box :class "cal" :orientation "v"
+    (box :class "cal-in"
+    (calendar :class "cal"
+                    :day calendar_day
+                    :year calendar_year))))
+
+(defwindow calendar
+    :monitor 0
+    :exclusive true
+    :focusable false
+    :geometry (geometry :x "10px"
+                        :y "10px"
+                        :anchor "top right"
+                        :width "270px"
+                        :height "60px")
+(cal))

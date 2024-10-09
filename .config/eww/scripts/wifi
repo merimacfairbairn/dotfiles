@@ -1,0 +1,26 @@
+#!/bin/bash
+
+status=$(wpa_cli status | grep -oE "DISCONNECTED")
+ssid=$(wpa_cli status | grep -oE "^ssid=.*" | awk -F= '{print ($2)}')
+
+if [ $status ] ; then
+    icon="󰤭"
+    text=""
+    col="#cc2412"
+
+else
+    icon="󰤨"
+    text="${ssid}"
+    col="#83a598"
+fi
+
+
+
+if [[ "$1" == "--COL" ]]; then
+    echo $col
+elif [[ "$1" == "--ESSID" ]]; then
+	echo $text
+elif [[ "$1" == "--ICON" ]]; then
+	echo $icon
+fi
+

@@ -1,0 +1,185 @@
+@import "theme"
+
+* {
+  all: unset; // Unsets everything so you can style everything from scratch
+}
+
+// Global Styles
+.bar {
+  border-radius: 12px;
+  background-color: $bg_s;
+  color: $fg;
+  padding: 8px;
+  font-family: JetBrainsMono Nerd Font;
+}
+
+.module {
+    margin: 0px 0px 0px 0px;
+    border-radius: 10px 16px 0px 10px;
+}
+
+.separ {
+    color: $fg3;
+    font-weight: bold;
+    font-size: 22px;
+    margin: 0px 8px 0px 8px;
+}
+
+tooltip {
+  color: $fg;
+  background-color: $bg_s;
+  border-radius: 10px;
+}
+
+// Styles on classes (see eww.yuck for more information)
+.workspaces button:hover {
+  color: $red;
+}
+
+.workspaces {
+  font-size: 18;
+  margin: 0 0 0 6;
+}
+
+// mem and cpu circle-progress
+.mem_module, .cpu_module {
+  background-color: $bg;
+  border-radius: 20px;
+  margin: 0px 5px 0px 5px;
+}
+
+// Memory bar
+.membar, .cpubar {
+  background-color: $bg2;
+  border-radius: 10px;
+}
+
+.iconmem, .iconcpu {
+  font-size: 9px;
+  margin: 9px;
+}
+
+.iconmem, .membar {
+  color: $green;
+}
+
+// CPU bar
+.iconcpu, .cpubar {
+  color: $orange;
+}
+
+// Sound
+.volbar trough highlight {
+  background-color: $yellow;
+  color: $bg;
+  border-radius: 10px;
+}
+
+.volume_icon {
+    font-size: 15;
+    margin: 0px 5px 0px 0px;
+}
+
+scale trough {
+  background-color: $bg3;
+  border-radius: 50px;
+  min-height: 4px;
+  min-width: 50px;
+  margin: 0 5 0 0;
+}
+
+.date-time {
+  margin: 0 0 0 5;
+}
+
+// Clock
+.clock_time_sep {
+    font-size: 22;
+    color: $fg;
+    margin: 0 0 0 0;
+}
+.clock_time_class, .clock_minute_class {
+    font-size: 23;
+}
+.clock_date_class {
+    font-size: 18;
+    margin: 0px 5px 0px 10px;
+    color: $purple;
+}
+.clock_minute_class {
+    margin: 0px 5px 0px 0px;
+    color: $fg;
+}
+
+.clock_time_class {
+    color: $fg;
+    font-weight: bold;
+    margin: 0px 0px 0px 0px;
+}
+
+// Wi-Fi
+.module_essid {
+    font-size: 15;
+    color: $fg;
+  margin: 0px 10px 0px 0px;
+}
+
+.module-wifi {
+    font-size: 22;
+    color: $blue;
+    border-radius: 100%;
+  margin: 0px 10px 0px 5px;
+}
+
+///////////////////////
+/* ADDITIONAL WINDOWS*/
+//////////////////////
+
+// Calendar
+.cal {
+  background-color: $bg_s;
+  font-family: JetBrainsMono Nerd Font;
+  font-size: 18px;
+  font-weight: normal;
+  border-radius: 13px;
+
+.cal-in {
+    padding: 0px 10px 0px 10px;
+    color: $blue;
+
+.cal {
+     &.highlight {
+          padding: 20px;
+      }
+
+      padding: 5px 5px 5px 5px;
+      margin-left: 10px;
+    }
+  }
+}
+
+calender {
+    color: $blue-dim;
+}
+
+calendar:selected {
+  color: $green;
+}
+
+calendar.header {
+color: $blue;
+font-weight: bold;
+}
+
+calendar.button {
+color: $blue;
+}
+
+calendar.highlight {
+color: $aqua-dim;
+font-weight: bold;
+}
+
+calendar:indeterminate {
+color: $gray;
+}
