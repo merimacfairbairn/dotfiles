@@ -1,3 +1,7 @@
+; Dependensies
+; hyprland-workspaces
+; jq
+
 ; Vars
 (deflisten music :initial "" "playerctl --follow metadata --format '{{ artist }} - {{ title }}' || true")
 (defpoll clock_time :interval "5m" "date +\%I")
@@ -6,6 +10,8 @@
 (defpoll volume :interval "1s" "scripts/getvol")
 (defpoll mic_percent :interval "3s" "amixer -D pulse sget Capture | grep 'Left:' | awk -F'[][]' '{ print $2 }' | tr -d '%'")
 (defpoll time :interval "10s" "date '+%H:%M %b %d, %Y'")
+
+(deflisten workspaces_list "hyprland-workspaces `hyprctl monitors -j | jq -r \".[0].name\"`")
 
 (defvar vol_rev false)
 (defvar time_rev false)
@@ -42,13 +48,13 @@
             (circular-progress :value {EWW_RAM.used_mem_perc}
                 :class "membar"
                 :thickness 4
-            (button
-                :class "iconmem"
-                :limit-width 2
-                :tooltip "${round(EWW_RAM.used_mem_perc, 0)}% ram"
-                :show_truncated false
-                :wrap false
-                "󰄯"))))
+                (button
+                    :class "iconmem"
+                    :limit-width 2
+                    :tooltip "${round(EWW_RAM.used_mem_perc, 0)}% ram"
+                    :show_truncated false
+                    :wrap false
+                    "󰄯"))))
 
 (defwidget cpu []
 		(box :class "cpu_module" :vexpand "false" :hexpand "false"
@@ -96,21 +102,20 @@
         ))))
 
 (defwidget workspaces []
-  (box :class "workspaces"
-       :orientation "h"
-       :space-evenly true
-       :halign "start"
-       :spacing 10
-    (button :onclick "hyprctl dispatch workspace 4" "")
-    (button :onclick "hyprctl dispatch workspace 7" "󰈹")
-    (button :onclick "hyprctl dispatch workspace 9" "")))
+    (eventbox :onscroll "hyprctl dispatch workspace `echo {} | sed 's/up/+/\' | sed 's/down/-/'`1"
+        (box :class "workspaces" :space-evenly true :spacing 15
+            (for i in workspaces_list
+                (button
+                    :onclick "hyprctl dispatch workspace ${i.id}"
+                    :class "${i.active ? "active-workspace" : "inactive-workspace"}"
+                    "${i.active ? "" : ""}")))))
 
 (defwidget music []
   (box :class "music"
        :orientation "h"
        :space-evenly false
        :halign "center"
-    {music != "" ? "🎵${music}" : ""}))
+        {music != "" ? "${music}" : ""}))
 
 ; Align elements on the bar
 (defwidget left []

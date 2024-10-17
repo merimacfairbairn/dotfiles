@@ -10,19 +10,19 @@
   background-color: $bg_s;
   color: $fg;
   padding: 8px;
-  font-family: JetBrainsMono Nerd Font;
+  font-family: Fira Code;
 }
 
 .module {
-    margin: 0px 0px 0px 0px;
-    border-radius: 10px 16px 0px 10px;
+  margin: 0px 0px 0px 0px;
+  border-radius: 10px 16px 0px 10px;
 }
 
 .separ {
-    color: $fg3;
-    font-weight: bold;
-    font-size: 22px;
-    margin: 0px 8px 0px 8px;
+  color: $fg3;
+  font-weight: bold;
+  font-size: 22px;
+  margin: 0px 8px 0px 8px;
 }
 
 tooltip {
@@ -33,25 +33,30 @@ tooltip {
 
 // Styles on classes (see eww.yuck for more information)
 .workspaces button:hover {
-  color: $red;
+  color: $fg2;
 }
 
 .workspaces {
   font-size: 18;
-  margin: 0 0 0 6;
+  font-weight: bold;
+  margin: 0 10 0 10;
+  color: $fg;
 }
 
-// mem and cpu circle-progress
+.music {
+  color: $fg;
+}
+
+// Mem and cpu circle-progress
 .mem_module, .cpu_module {
   background-color: $bg;
-  border-radius: 20px;
+  border-radius: 50%;
   margin: 0px 5px 0px 5px;
 }
 
-// Memory bar
 .membar, .cpubar {
   background-color: $bg2;
-  border-radius: 10px;
+  border-radius: 50%;
 }
 
 .iconmem, .iconcpu {
@@ -76,8 +81,8 @@ tooltip {
 }
 
 .volume_icon {
-    font-size: 15;
-    margin: 0px 5px 0px 0px;
+  font-size: 15;
+  margin: 0px 5px 0px 0px;
 }
 
 scale trough {
@@ -94,41 +99,42 @@ scale trough {
 
 // Clock
 .clock_time_sep {
-    font-size: 22;
-    color: $fg;
-    margin: 0 0 0 0;
+  font-size: 22;
+  color: $fg;
+  margin: 0 0 0 0;
 }
 .clock_time_class, .clock_minute_class {
-    font-size: 23;
+  font-size: 23;
 }
 .clock_date_class {
-    font-size: 18;
-    margin: 0px 5px 0px 10px;
-    color: $purple;
+  font-size: 18;
+  margin: 0px 5px 0px 10px;
+  color: $purple;
 }
 .clock_minute_class {
-    margin: 0px 5px 0px 0px;
-    color: $fg;
+  margin: 0px 5px 0px 0px;
+  color: $fg;
 }
 
 .clock_time_class {
-    color: $fg;
-    font-weight: bold;
-    margin: 0px 0px 0px 0px;
+  color: $fg;
+  font-weight: bold;
+  margin: 0px 0px 0px 0px;
 }
 
 // Wi-Fi
-.module_essid {
-    font-size: 15;
-    color: $fg;
-  margin: 0px 10px 0px 0px;
+.module-wifi {
+  font-size: 22;
+  color: $blue-dim;
+  border-radius: 100%;
+  margin: 0px 10px 0px 5px;
 }
 
-.module-wifi {
-    font-size: 22;
-    color: $blue;
-    border-radius: 100%;
-  margin: 0px 10px 0px 5px;
+.module_essid {
+  font-size: 15;
+  font-weight: bold;
+  color: $fg;
+  margin: 0px 10px 0px 0px;
 }
 
 ///////////////////////
@@ -138,18 +144,17 @@ scale trough {
 // Calendar
 .cal {
   background-color: $bg_s;
-  font-family: JetBrainsMono Nerd Font;
   font-size: 18px;
   font-weight: normal;
   border-radius: 13px;
 
-.cal-in {
+  .cal-in {
     padding: 0px 10px 0px 10px;
     color: $blue;
 
-.cal {
-     &.highlight {
-          padding: 20px;
+    .cal {
+      &.highlight {
+        padding: 20px;
       }
 
       padding: 5px 5px 5px 5px;
@@ -159,7 +164,7 @@ scale trough {
 }
 
 calender {
-    color: $blue-dim;
+  color: $blue-dim;
 }
 
 calendar:selected {
@@ -167,19 +172,19 @@ calendar:selected {
 }
 
 calendar.header {
-color: $blue;
-font-weight: bold;
+  color: $blue;
+  font-weight: bold;
 }
 
 calendar.button {
-color: $blue;
+  color: $blue;
 }
 
 calendar.highlight {
-color: $aqua-dim;
-font-weight: bold;
+  color: $aqua-dim;
+  font-weight: bold;
 }
 
 calendar:indeterminate {
-color: $gray;
+  color: $gray;
 }
