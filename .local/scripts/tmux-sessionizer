@@ -9,7 +9,14 @@ CURRENT_DIR=${CURRENT_DIR:-$PWD}
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected=$(find ~/projects ~/media ~/documents ~/downloads ~/.config "$CURRENT_DIR" -mindepth 1 -maxdepth 2 -type d -not -name ".*" 2>/dev/null | fzf)
+# Standard directories + current directory
+regular_dirs=$(find ~/projects ~/media ~/documents ~/downloads "$CURRENT_DIR" \
+    -not -path "$CURRENT_DIR/.*" -mindepth 1 -maxdepth 2 -type d 2>/dev/null)
+
+# Dot directory exception
+config_dirs=$(find ~/.config -mindepth 1 -maxdepth 2 -type d 2>/dev/null)
+
+selected=$(printf "%s\n%s" "$regular_dirs" "$config_dirs" | fzf)
 fi
 
 if [[ -z $selected ]]; then
