@@ -2,14 +2,16 @@
 ; hyprland-workspaces
 ; jq
 
-; Vars
-(deflisten music :initial "" "playerctl --follow metadata --format '{{ artist }} - {{ title }}' || true")
-(defpoll clock_time :interval "5m" "date +\%I")
-(defpoll clock_minute :interval "5s" "date +\%M")
-(defpoll clock_date :interval "10h" "date '+%d/%m'")
+; Vars, polls and listens
+(defpoll title :interval "1s" "hyprctl activewindow | grep title | awk '{$1=\"\";print $0}' | awk '{$1=$1};1'")
+(defpoll clock_time :interval "60m" "date +\%I")
+(defpoll clock_minute :interval "60s" "date +\%M")
+(defpoll clock_date :interval "24h" "date '+%d/%m'")
 (defpoll volume :interval "1s" "scripts/getvol")
 (defpoll mic_percent :interval "3s" "amixer -D pulse sget Capture | grep 'Left:' | awk -F'[][]' '{ print $2 }' | tr -d '%'")
 (defpoll time :interval "10s" "date '+%H:%M %b %d, %Y'")
+(defpoll not_icon :interval "1s" "scripts/not_icon")
+(defpoll vol_icon :interval "1s" "scripts/vol_icon")
 
 (deflisten workspaces_list "hyprland-workspaces `hyprctl monitors -j | jq -r \".[0].name\"`")
 
@@ -21,13 +23,22 @@
 (defpoll ESSID_WLAN :interval "1m" "~/.config/eww/scripts/wifi --ESSID")
 (defpoll WLAN_ICON :interval "1m" "~/.config/eww/scripts/wifi --ICON")
 
-(defpoll calendar_day :interval "20h" "date '+%d'")
-(defpoll calendar_year :interval "20h" "date '+%Y'")
+(defpoll calendar_day :interval "24h" "date '+%d'")
+(defpoll calendar_year :interval "24h" "date '+%Y'")
 
 ; Widgets
 (defwidget sep []
   (box :class "module-2" :vexpand "false" :hexpand "false"
     (label :class "separ" :text "|")))
+
+(defwidget notifications []
+    (box :class "notification_module" :vexpand "false" :hexpand "false"
+        (button
+            :class "not_icon"
+            :onclick "swaync-client -t"
+            :onrightclick "swaync-client -d"
+            not_icon
+    )))
 
 (defwidget wifi []
   (eventbox :onhover "eww update wifi_rev=true" :onhoverlost "eww update wifi_rev=false"
@@ -88,7 +99,7 @@
   (eventbox :onhover "eww update vol_rev=true"
 			  :onhoverlost "eww update vol_rev=false"
   (box :class "module-2" :space-evenly "false" :orientation "h" :spacing "5"
-	(button   :onclick "./scripts/pop audio"   :class "volume_icon" "")
+	(button   :onrightclick "amixer -D pipewire set Master toggle"   :class "volume_icon" vol_icon)
 	(revealer :transition "slideleft"
 			  :reveal vol_rev
 			  :duration "350ms"
@@ -110,12 +121,12 @@
                     :class "${i.active ? "active-workspace" : "inactive-workspace"}"
                     "${i.active ? "" : ""}")))))
 
-(defwidget music []
-  (box :class "music"
+(defwidget title []
+  (box :class "title"
        :orientation "h"
        :space-evenly false
        :halign "center"
-        {music != "" ? "${music}" : ""}))
+        {title != "" ? "${title}" : ""}))
 
 ; Align elements on the bar
 (defwidget left []
@@ -131,7 +142,7 @@
          :space-evenly false
          :halign "center"
          :class "center_modules"
-         (music)
+         (title)
          ))
 
 (defwidget right []
@@ -139,6 +150,7 @@
          :space-evenly false
          :halign "end"
          :class "right_modules"
+         (notifications)
          (sound)
          (wifi)
          (sep)

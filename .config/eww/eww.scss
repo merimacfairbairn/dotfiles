@@ -43,7 +43,7 @@ tooltip {
   color: $fg;
 }
 
-.music {
+.title {
   color: $fg;
 }
 
@@ -73,6 +73,16 @@ tooltip {
   color: $orange;
 }
 
+// Notifications
+.notification_module {
+  color: $fg;
+}
+
+.not_icon {
+  font-size: 15;
+  margin: 0px 10px 0px 5px;
+}
+
 // Sound
 .volbar trough highlight {
   background-color: $yellow;
@@ -81,8 +91,8 @@ tooltip {
 }
 
 .volume_icon {
-  font-size: 15;
-  margin: 0px 5px 0px 0px;
+  font-size: 18;
+  margin: 0px 5px 0px 5px;
 }
 
 scale trough {
