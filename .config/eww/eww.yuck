@@ -3,7 +3,7 @@
 ; jq
 
 ; Vars, polls and listens
-(defpoll title :interval "1s" "hyprctl activewindow | grep title | awk '{$1=\"\";print $0}' | awk '{$1=$1};1'")
+(defpoll title :interval "1s" "hyprctl activewindow | grep title | awk '{$1=\"\";print $0}' | awk '{$1=$1};1' | cut -c 1-150")
 (defpoll clock_time :interval "60m" "date +\%I")
 (defpoll clock_minute :interval "60s" "date +\%M")
 (defpoll clock_date :interval "24h" "date '+%d/%m'")
