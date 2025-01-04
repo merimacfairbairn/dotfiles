@@ -35,8 +35,9 @@
     }
   },
   "widgets": [
-    "title",
     "dnd",
+    "mpris",
+    "title",
     "notifications"
   ],
   "widget-config": {
@@ -47,10 +48,6 @@
     },
     "dnd": {
       "text": "Do Not Disturb"
-    },
-    "label": {
-      "max-lines": 1,
-      "text": "Control Center"
     },
     "mpris": {
       "image-size": 96,
