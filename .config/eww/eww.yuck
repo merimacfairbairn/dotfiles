@@ -4,9 +4,9 @@
 
 ; Vars, polls and listens
 (defpoll title :interval "1s" "hyprctl activewindow | grep title | awk '{$1=\"\";print $0}' | awk '{$1=$1};1' | cut -c 1-150")
-(defpoll clock_time :interval "60m" "date +\%I")
-(defpoll clock_minute :interval "60s" "date +\%M")
-(defpoll clock_date :interval "24h" "date '+%d/%m'")
+(defpoll clock_time :interval "1s" "date +\%I")
+(defpoll clock_minute :interval "1s" "date +\%M")
+(defpoll clock_date :interval "1m" "date '+%d/%m'")
 (defpoll volume :interval "1s" "scripts/getvol")
 (defpoll mic_percent :interval "3s" "amixer -D pulse sget Capture | grep 'Left:' | awk -F'[][]' '{ print $2 }' | tr -d '%'")
 (defpoll time :interval "10s" "date '+%H:%M %b %d, %Y'")
