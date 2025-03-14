@@ -26,17 +26,6 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
-# SSH
-if [ -z "$SSH_AGENT_PID" ]; then
-    eval "$(ssh-agent -s)"
-fi
-
-if ! ssh-add -l | grep -q "e5520"; then
-    ssh-add ~/.ssh/id_e5520
-fi
-
-
-
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 alias vim='nvim'
 alias air='~/.go/bin/air'
