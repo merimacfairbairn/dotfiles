@@ -9,6 +9,9 @@ export QT_QPA_PLATFORMTHEME="gt5ct"
 # Wayland OBS
 export QT_QPA_PLATFORM=wayland
 
+# Add Rust binaries to PATH
+export PATH="$HOME/.cargo/bin:$PATH"
+
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
     exec dbus-launch --exit-with-session Hyprland;
 fi
