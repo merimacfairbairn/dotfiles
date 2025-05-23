@@ -1,0 +1,13 @@
+cnijfilter-mx470series
+eww
+hyprland-workspaces
+librewolf
+otf-material-design-icons
+python-django-stubs-ext
+python-social-auth-app-django
+python-social-auth-core
+simplex-desktop-bin
+stripe-cli
+wl-color-picker
+woeusb
+yay
