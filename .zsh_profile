@@ -12,6 +12,9 @@ export QT_QPA_PLATFORM=wayland
 # Add Rust binaries to PATH
 export PATH="$HOME/.cargo/bin:$PATH"
 
+# Add Go binaries to PATH
+export PATH="$GOPATH/bin:$PATH"
+
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
     exec dbus-launch --exit-with-session Hyprland;
 fi
@@ -27,6 +30,10 @@ fi
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
+fi
+
+if [ -d "$HOME/.config/emacs/bin" ] ; then
+    PATH="$HOME/.config/emacs/bin:$PATH"
 fi
 
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
