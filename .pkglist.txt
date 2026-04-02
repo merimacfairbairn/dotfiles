@@ -135,10 +135,12 @@ ripgrep
 rkhunter
 rtkit
 ruby
+rustdesk
 rustup
 sane
 sane-airscan
 sane-openrc
+sbctl
 sdbus-cpp
 sdl_image
 simplex-desktop-bin
