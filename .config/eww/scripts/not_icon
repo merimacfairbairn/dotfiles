@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Fetch the current DND status
+DND_STATUS=$(swaync-client --get-dnd)
+
+# Fetch the number of unread notifications
+UNREAD_COUNT=$(swaync-client --count)
+
+# Determine the icon to display
+if [ "$DND_STATUS" = "true" ]; then
+    echo "󰂛"  # DND enabled icon
+elif [ "$UNREAD_COUNT" -gt 0 ]; then
+    echo "󱅫"  # Unread notifications icon
+else
+    echo "󰂚"  # No notifications icon
+fi

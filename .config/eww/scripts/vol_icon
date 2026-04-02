@@ -1,0 +1,16 @@
+#!/bin/bash
+
+VOLUME=$(amixer -D pipewire get Master | grep -oP '\[\d+%\]' | head -1 | tr -d '[]%')
+MUTED=$(amixer -D pipewire get Master | grep -oP '\[off\]' | head -1)
+
+if [ "$MUTED" = "[off]" ]; then
+    echo "󰖁"
+elif [ "$VOLUME" -eq 0 ]; then
+    echo "󰝟"
+elif [ "$VOLUME" -le 30 ]; then
+    echo "󰕿"
+elif [ "$VOLUME" -le 60 ]; then
+    echo "󰖀"
+else
+    echo "󰕾"
+fi
