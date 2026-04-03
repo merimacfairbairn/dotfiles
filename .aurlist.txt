@@ -11,3 +11,18 @@ stripe-cli
 wl-color-picker
 woeusb
 yay
+cnijfilter-mx470series 4.10-1
+eww 0.6.0-1
+google-chrome 143.0.7499.109-1
+hyprland-workspaces 2.0.4-1
+otf-material-design-icons 4.0.0-1
+python-django-stubs-ext 5.1.3-1
+python-jupytext 1.17.2-1
+python-social-auth-app-django 5.4.0-1
+python-social-auth-core 4.7.0-3
+simplex-desktop-bin 6.4.2-1
+stripe-cli 1.29.0-1
+wl-color-picker 1.4-1
+woeusb 5.2.4-1
+yay 12.5.7-1
+zen-browser-bin 1.14.11b-1
